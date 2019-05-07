@@ -1,7 +1,8 @@
 
+#include <Arduino.h>
 #include <SPI.h>
 #include <MCP2515.h>
-#include "SimpleCAN.h"
+#include "SimpleCAN/SimpleCAN.h"
 
 
 #define MODE 1 //0=rx, 1=tx
