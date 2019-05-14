@@ -9,7 +9,6 @@
 class SimpleCAN
 {
   public:
-    SimpleCAN(void (*fun_ptr_arr[])(CANMSG), int startValue, int size);
     SimpleCAN();
 
     bool HandleTextMsg(CANMSG msg);

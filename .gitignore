@@ -4,3 +4,7 @@
 *.ipch
 
 *.yml
+
+CanTester/\.vscode/extensions\.json
+
+CanTester/\.vscode/settings\.json

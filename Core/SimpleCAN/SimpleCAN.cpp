@@ -1,9 +1,7 @@
 #include "SimpleCAN.h"
 #include "SPI.h"
 
-SimpleCAN::SimpleCAN(void (*fun_ptr_arr[])(CANMSG), int startValue, int size)
-{
-}
+
 SimpleCAN::SimpleCAN()
 {
    Serial.println("Got here");
