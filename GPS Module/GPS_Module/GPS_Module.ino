@@ -12,7 +12,7 @@
 Adafruit_GPS GPS(&GPSSerial);
 CANMSG CanMsg; 
 SimpleCAN* can;
-uint32_t timer = millis();
+uint32_t timer = 0;
 void setup() 
 {
   can = new SimpleCAN();
@@ -24,20 +24,23 @@ void setup()
 }
 void loop() 
 {
+  
   //Reading GPS Data
   if (GPS.newNMEAreceived()) {
-    //Serial.println(GPS.lastNMEA()); 
+    Serial.println(GPS.lastNMEA()); 
     if (!GPS.parse(GPS.lastNMEA()))
       return; 
   }
+  
 
   //Parsing GPS Data
   if (millis() - timer > 2000) {
-  timer = millis(); // reset the timer
+    
+    timer = millis();
     Serial.print("Location: ");
-    Serial.print(GPS.latitude, 4); Serial.print(GPS.lat);
+    //Serial.print(GPS.latitude, 4); Serial.print(GPS.lat);
     Serial.print(", ");
-    Serial.print(GPS.longitude, 4); Serial.println(GPS.lon);  
+    //Serial.print(GPS.longitude, 4); Serial.println(GPS.lon);  
   }
 
   //Received Message Handling
