@@ -110,13 +110,16 @@ bool SimpleCAN::BuildCanString(char buffer[], int size, unsigned long adrsValue)
 
 bool SimpleCAN::SendCANMSG(CANMSG msg)
 {
-   can.transmitCANMessage(msg, 1000);
+  
+ return  can.transmitCANMessage(msg, 1000);
 }
 
 bool SimpleCAN::SendInt(int val, unsigned long address)
 {
    CANMSG msg = IntToCANMSG(val);
    msg.adrsValue = address;
+    msg.isExtendedAdrs = false;
+   msg.rtr = false;
    return SendCANMSG(msg);
 } 
 
@@ -140,6 +143,7 @@ CANMSG SimpleCAN::Uint32ToCANMSG(uint32_t val)
      CANMSG msg;
    msg.data[0] = val >> 8;
    msg.data[1] = val;
+   msg.dataLength = 2;
    return msg;
  }
 

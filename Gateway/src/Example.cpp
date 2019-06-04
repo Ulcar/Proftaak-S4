@@ -51,7 +51,7 @@ void setup()
   while(!Serial);
   Serial.println("Go...");
   SPI.setClockDivider(SPI_CLOCK_DIV8);
-  can = new SimpleCAN(10);
+  can = new SimpleCAN(100);
   can->Setup();
   carData.SetTargetSpeed(120);
   setupTimer1();
@@ -60,21 +60,25 @@ void setup()
 
 void SendSpeed()
 {
-  can->SendInt(data.speed, 12);
+ can->SendInt(data.speed, 12);
+  Serial.print("Sent: ");
+   Serial.println(data.speed);
 }
 void SendDistance()
 {
    can->SendInt(data.m, 11);
+   Serial.print("Sent: ");
+   Serial.println(data.m);
 }
 void SendFuel()
 {
-
+ // Serial.println(can->SendString("epic", 4, 0, 13));
 }
 void SendRPM(){}
 
 void loop()
 {
- Serial.println(data.m);
+// Serial.println(data.speed);
   
  if(Serial.available() > 0)
  {

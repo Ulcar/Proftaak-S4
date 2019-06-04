@@ -53,6 +53,23 @@ bool SimpleCAN::GetReceivedMessage(CANMSG *msg)
     return can.receiveCANMessage(msg, 10);
 }
 
+bool SimpleCAN::SendCharMsg(char buffer[], int size,  unsigned long adrsValue)
+{
+    CANMSG messageToSend;
+  messageToSend.adrsValue = adrsValue;
+  messageToSend.isExtendedAdrs = false;
+  messageToSend.rtr = false;
+  messageToSend.dataLength = size;
+  for(int i = 0; i < size; i++)
+  {
+    messageToSend.data[i] = buffer[i];
+    Serial.print(buffer[i]);
+  }
+  Serial.println();
+  return can.transmitCANMessage(messageToSend, 1000);
+
+}
+
 bool SimpleCAN::SendString(char buffer[], int size, uint8_t uniqueID, unsigned long adrsValue)
 {
   int index = 0;
@@ -63,7 +80,7 @@ bool SimpleCAN::SendString(char buffer[], int size, uint8_t uniqueID, unsigned l
   while(size > 0)
   {
      if(size > 8){
-      if(BuildCanString(buffer + index, 8, adrsValue))
+      if(SendCharMsg(buffer + index, 8, adrsValue))
       {
          Serial.print("message sent:");
       }
@@ -75,7 +92,7 @@ bool SimpleCAN::SendString(char buffer[], int size, uint8_t uniqueID, unsigned l
      }
      else
      {
-       if(BuildCanString(buffer + index, size, adrsValue))
+       if(SendCharMsg(buffer + index, size, adrsValue))
     {
        Serial.println("message sent:");
     }
@@ -92,24 +109,6 @@ bool SimpleCAN::SendString(char buffer[], int size, uint8_t uniqueID, unsigned l
   }
 }
 
-bool SimpleCAN::BuildCanString(char buffer[], int size, unsigned long adrsValue)
-{
-  CANMSG messageToSend;
-  messageToSend.adrsValue = adrsValue;
-  messageToSend.isExtendedAdrs = false;
-  messageToSend.rtr = false;
-  messageToSend.dataLength = size;
-  for(int i = 0; i < size; i++)
-  {
-    messageToSend.data[i] = buffer[i];
-    Serial.print(buffer[i]);
-  }
-  Serial.println();
-  return can.transmitCANMessage(messageToSend, 1000);
-
-  
-  
-}
 
 
 bool SimpleCAN::SendCANMSG(CANMSG msg)
@@ -121,6 +120,9 @@ bool SimpleCAN::SendInt(int val, unsigned long address)
 {
    CANMSG msg = IntToCANMSG(val);
    msg.adrsValue = address;
+   msg.isExtendedAdrs = false;
+   msg.rtr = false;
+   msg.dataLength = 2;
    return SendCANMSG(msg);
 } 
 
@@ -149,7 +151,7 @@ CANMSG SimpleCAN::Uint32ToCANMSG(uint32_t val)
 
  int SimpleCAN::CANMSGToInt(CANMSG msg)
  {
-    return (msg.data[1] << 8) + (msg.data[0]);
+    return (msg.data[0] << 8) + (msg.data[1]);
  }
 
 CANMSG SimpleCAN::Uint32ToCANMSGWithAddress(uint32_t val, unsigned long address)
