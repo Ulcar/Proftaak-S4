@@ -2,40 +2,23 @@
 #include "SPI.h"
 
 
-SimpleCAN::SimpleCAN()
+SimpleCAN::SimpleCAN(int canTimeout)
 {
    Serial.println("Got here");
 }
 
-bool SimpleCAN::HandleTextMsg(CANMSG msg) //plakt nog niks aan elkaar
+/*bool SimpleCAN::HandleTextMsg(CANMSG msg) //plakt nog niks aan elkaar
 {
     Serial.print("Received msg: ID: ");
     Serial.print(msg.adrsValue);
     Serial.print(" MSG: ");
-    printByteArray(&msg.data[0], msg.dataLength);
+    //printByteArray(&msg.data[0], msg.dataLength);
     Serial.print("\n");
     return true;
-}
+} */
 
-uint32_t SimpleCAN::HandleUint32Msg(CANMSG msg) //big endian
-{
-    // https://stackoverflow.com/a/12240325
-    uint32_t val = (msg.data[0] << 24) + (msg.data[1] << 16) + (msg.data[2] << 8) + msg.data[3];
-    return val;
-}
 
-void SimpleCAN::MakeUint32Msg(CANMSG *msg, uint32_t val) //big endian
-{
-    // // https://stackoverflow.com/a/6502825
-     msg->data[0] = val >> 24;
-     msg->data[1] = val >> 16;
-     msg->data[2] = val >> 8;
-     msg->data[3] = val;
-}
-bool SimpleCAN::HandleReceivedMessage(CANMSG *msg)
-{
-    return can.receiveCANMessage(msg, 10);
-}
+
 
 void SimpleCAN::printByteArray(byte *arrayPtr, int size)
 {
@@ -65,7 +48,12 @@ void SimpleCAN::Setup()
   Serial.print("Done setting up\n");
 }
 
-void SimpleCAN::SendCanString(char buffer[], int size, unsigned long adrsValue)
+bool SimpleCAN::GetReceivedMessage(CANMSG *msg)
+{
+    return can.receiveCANMessage(msg, 10);
+}
+
+bool SimpleCAN::SendString(char buffer[], int size, uint8_t uniqueID, unsigned long adrsValue)
 {
   int index = 0;
   Serial.print("size = ");
@@ -75,14 +63,14 @@ void SimpleCAN::SendCanString(char buffer[], int size, unsigned long adrsValue)
   while(size > 0)
   {
      if(size > 8){
-     if(BuildCanString(buffer + index, 8, adrsValue))
-    {
-       Serial.print("message sent:");
-    }
-       else
-  {
-     Serial.println("message send failed");
-  }
+      if(BuildCanString(buffer + index, 8, adrsValue))
+      {
+         Serial.print("message sent:");
+      }
+      else
+      {
+         Serial.println("message send failed");
+      }
     
      }
      else
@@ -122,3 +110,64 @@ bool SimpleCAN::BuildCanString(char buffer[], int size, unsigned long adrsValue)
   
   
 }
+
+
+bool SimpleCAN::SendCANMSG(CANMSG msg)
+{
+   can.transmitCANMessage(msg, 1000);
+}
+
+bool SimpleCAN::SendInt(int val, unsigned long address)
+{
+   CANMSG msg = IntToCANMSG(val);
+   msg.adrsValue = address;
+   return SendCANMSG(msg);
+} 
+
+uint32_t SimpleCAN::CANMSGToUint32(CANMSG msg)
+{
+    return (msg.data[0] << 24) + (msg.data[1] << 16) + (msg.data[2] << 8) + msg.data[3];
+}
+
+CANMSG SimpleCAN::Uint32ToCANMSG(uint32_t val)
+{
+   CANMSG msg;
+   msg.data[0] = val >> 24;
+   msg.data[1] = val >> 16;
+   msg.data[2] = val >> 8;
+   msg.data[3] = val;
+   return msg;
+}
+
+ CANMSG SimpleCAN::IntToCANMSG(int val)
+ {
+     CANMSG msg;
+   msg.data[0] = val >> 8;
+   msg.data[1] = val;
+   return msg;
+ }
+
+ int SimpleCAN::CANMSGToInt(CANMSG msg)
+ {
+    return (msg.data[1] << 8) + (msg.data[0]);
+ }
+
+CANMSG SimpleCAN::Uint32ToCANMSGWithAddress(uint32_t val, unsigned long address)
+{
+   CANMSG msg = Uint32ToCANMSG(val);
+   msg.adrsValue = address;
+   return msg;
+}
+
+bool SimpleCAN::CANMSGToBool(CANMSG msg)
+{
+   //uh how are we gonna do this
+   return msg.data[0];
+}
+
+ CANMSG SimpleCAN::BoolToCANMSG(bool val)
+ {
+    CANMSG msg;
+    msg.data[0] = val;
+    return msg;
+ }
