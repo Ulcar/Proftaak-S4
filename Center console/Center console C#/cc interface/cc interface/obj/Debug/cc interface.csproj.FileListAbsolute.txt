@@ -1,0 +1,10 @@
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\bin\Debug\cc interface.exe.config
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\bin\Debug\cc interface.exe
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\bin\Debug\cc interface.pdb
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\obj\Debug\cc interface.csprojAssemblyReference.cache
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\obj\Debug\cc_interface.mainForm.resources
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\obj\Debug\cc_interface.Properties.Resources.resources
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\obj\Debug\cc interface.csproj.GenerateResource.cache
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\obj\Debug\cc interface.csproj.CoreCompileInputs.cache
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\obj\Debug\cc interface.exe
+D:\school\Proftaak\Github\Proftaak-S4\Center console\Center console C#\cc interface\cc interface\obj\Debug\cc interface.pdb
