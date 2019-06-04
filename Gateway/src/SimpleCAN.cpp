@@ -48,11 +48,6 @@ void SimpleCAN::Setup()
   Serial.print("Done setting up\n");
 }
 
-bool SimpleCAN::GetReceivedMessage(CANMSG *msg)
-{
-    return can.receiveCANMessage(msg, 10);
-}
-
 bool SimpleCAN::SendString(char buffer[], int size, uint8_t uniqueID, unsigned long adrsValue)
 {
   int index = 0;
@@ -90,6 +85,7 @@ bool SimpleCAN::SendString(char buffer[], int size, uint8_t uniqueID, unsigned l
     index += 8;
     size -= 8;
   }
+  return true;
 }
 
 bool SimpleCAN::BuildCanString(char buffer[], int size, unsigned long adrsValue)
@@ -149,7 +145,7 @@ CANMSG SimpleCAN::Uint32ToCANMSG(uint32_t val)
 
  int SimpleCAN::CANMSGToInt(CANMSG msg)
  {
-    return (msg.data[1] << 8) + (msg.data[0]);
+    return (msg.data[0] << 8) + (msg.data[1]);
  }
 
 CANMSG SimpleCAN::Uint32ToCANMSGWithAddress(uint32_t val, unsigned long address)
