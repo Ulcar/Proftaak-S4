@@ -1,7 +1,7 @@
 Getting started
 
 To start the simulation, make an instance of Cardatasimulator.
-the hz parameter of the class correspond with Cardatasimulator.update(). The example code uses a timer interrupt to achieve this.
+the hz parameter of the class needs to correspond with Cardatasimulator.update(). The example code uses a timer interrupt to achieve this.
 The data of the simulator gets returned as a CarData struct, and can be retrieved by calling Cardatasimulator.GetData(), 
 after which you can use the data.
 
