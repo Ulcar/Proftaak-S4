@@ -4,7 +4,7 @@ class CarDataSimulator
 {
     public:
     
-    CarDataSimulator(int hz);
+    CarDataSimulator(int hz, float radius, float R1, float R2);
     CarData GetData();
     void UpdateValues();
     void SetTargetSpeed(int targetSpeed);
@@ -13,6 +13,11 @@ class CarDataSimulator
     int hz;
     float period;
     int targetSpeed;
+    float radius;
+    //transmission in real life would depend on what gear you're driving in
+    float transmissionGearRatio;
+    // 
+    float rearEndRatio;
     CarData data;
     FastPID* pid;
 

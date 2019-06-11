@@ -1,7 +1,8 @@
 struct CarData
 {
+    int km;
     int m;
-    // speed in km/h
+    // speed in m/s
     int speed;
     int rpm;
     int fuel;

@@ -12,7 +12,7 @@ int led3  =  8;
 int led13 = 13;
 SimpleCAN* can;
 CANMSG msg;
-CarDataSimulator carData(1);
+CarDataSimulator carData(1, 27.686, 0.73, 3.62);
 CarData data;
 char charData[100];
 
@@ -40,10 +40,7 @@ sei(); // allow interrupts
 
 }
 
-void setupTimer2()
-{
 
-}
 
 void setup()
 {
@@ -53,7 +50,7 @@ void setup()
   SPI.setClockDivider(SPI_CLOCK_DIV8);
   can = new SimpleCAN(100);
   can->Setup();
-  carData.SetTargetSpeed(120);
+  carData.SetTargetSpeed(236);
   setupTimer1();
   sei();
 }
@@ -61,20 +58,27 @@ void setup()
 void SendSpeed()
 {
  can->SendInt(data.speed, 12);
-  Serial.print("Sent: ");
+  Serial.print("Sent speed: ");
    Serial.println(data.speed);
 }
 void SendDistance()
 {
-   can->SendInt(data.m, 11);
-   Serial.print("Sent: ");
-   Serial.println(data.m);
+   can->SendInt(data.km, 11);
+   Serial.print("Sent km: ");
+   Serial.println(data.km);
 }
 void SendFuel()
 {
- // Serial.println(can->SendString("epic", 4, 0, 13));
+ can->SendInt(data.fuel, 14);
+   Serial.print("Sent Fuel: ");
+   Serial.println(data.fuel);
 }
-void SendRPM(){}
+void SendRPM()
+{
+   can->SendInt(data.rpm, 13);
+   Serial.print("Sent RPM: ");
+   Serial.println(data.rpm);
+}
 
 void loop()
 {
