@@ -11,25 +11,26 @@ int led3  =  8;
 int led13 = 13;
 SimpleCAN* can;
 CANMSG msg;
-char data[100];
+const int inputLength = 100;
+char data[inputLength];
+byte senderID = 0;
 
-
-void Test(CANMSG msg)
+void printByteArray(byte data[], int length) // prints 8-bit data in hex
 {
-  Serial.println("Ok this is epic");
+  Serial.print("Hex Data: ");
+  for (size_t i = 0; i < (size_t)length; i++)
+  {
+    Serial.print(data[i], HEX);
+    Serial.print(' ');
+  }
+  Serial.println();
 }
 
-void Test2(CANMSG msg)
-{
-  Serial.println("In second function");
-}
-
-
-void printByteArray(byte *arrayPtr, int size)
+void printCharArray(byte *arrayPtr, int size)
 {
     for (int i = 0; i < size; i++)
     {
-        Serial.print((char)arrayPtr[i]);
+      Serial.write(arrayPtr, size);
     }
 }
 
@@ -38,27 +39,24 @@ bool HandleTextMsg(CANMSG msg) //plakt nog niks aan elkaar
     Serial.print("Received msg: ID: ");
     Serial.print(msg.adrsValue);
     Serial.print(" MSG: ");
-    printByteArray(&msg.data[0], msg.dataLength);
+    // printCharArray(&msg.data[0], msg.dataLength);
+    printByteArray(msg.data, msg.dataLength);
     Serial.print("\n");
     return true;
 }
-
-
 
 void setup()
 {
   Serial.begin(9600); 
   while(!Serial);
-  Serial.println("Go...");
   SPI.setClockDivider(SPI_CLOCK_DIV8);
   can = new SimpleCAN(100);
   can->Setup();
 }
 
-
+  bool messageToggle = false;
 void loop()
 {
-  
   if(can->GetReceivedMessage(&msg))
   {
     if(msg.adrsValue == 11 || msg.adrsValue == 12)
@@ -71,19 +69,49 @@ void loop()
     
     else
     {
-      HandleTextMsg(msg);
-    }
+      byte* arr;
+      int size;
 
+      if(can->CANMSGToByteArray(msg, &arr, &size))
+      {
+        Serial.print("ID: ");
+        Serial.print(msg.adrsValue);
+        Serial.print(" Data: ");
+        Serial.write((byte*)arr, size);
+        // can->printByteArrayHex(arr, size);
+        // if (can->PrintList(msg.data[0]) == -1)
+        // {
+        //   Serial.println("PrintList could not find list.");
+        // }
+
+        delete[] arr;
+      }
+
+    }
   }
-  
+
  if(Serial.available() > 0)
  {
+   
   char adr[10] = {}; 
   Serial.readBytesUntil(';', adr, 10);
-  int size =  Serial.readBytesUntil('\n', data, 100);
-  can->SendString(data, size, 0, atol(adr));
- }
+  int size = Serial.readBytesUntil('\n', data, inputLength);
 
+  // Serial.print("Sending data: ");
+  Serial.write((byte *)data, size);
+
+  if (!can->SendString(data, size, (int)senderID, atol(adr)))
+  {
+    Serial.println("Failed to send data.");
+  }
+
+  // can->SendLongByteMessage((byte *)data, size, atol(adr));
+  
+  // byte buffer[30] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E};
+  // can->SendLongByteMessage(buffer, 30, atol(adr));
+  senderID++;
+  
+ }
 }
 
 
