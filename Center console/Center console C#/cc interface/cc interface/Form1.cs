@@ -86,17 +86,38 @@ namespace cc_interface
         public void CheckSerialPort()
         {
 
-            MessageBox.Show("message test");
+            //MessageBox.Show("message test");
             if (_serialPort.BytesToRead > 0)
             {
                MessageBox.Show("message incoming");
                 recieveSerial();
                
             }
+            else
+            {
+                StartThreadMethod();
+            }
+        }
+
+        private void writeSerial(byte []message, int messageLength, int address)
+        {
+            _serialPort.Write("#");
+            _serialPort.Write(address.ToString());
+            _serialPort.Write("%");
+            _serialPort.Write(message, 0, messageLength);
+            _serialPort.Write("$");
+            //Console.WriteLine("#");
+            //Console.WriteLine(address.ToString());
+            //Console.WriteLine("%");
+            //Console.WriteLine((char)message, 0, messageLength);
+            //Console.WriteLine("$");
+
         }
 
         private void recieveSerial()
         {
+            MessageBox.Show(_serialPort.ReadChar().ToString());
+            /*
             char incoming = ' ';
             char[] message = new char[256];
             while ((char)_serialPort.ReadChar() != '#') ;
@@ -182,11 +203,35 @@ namespace cc_interface
                     Console.WriteLine("message has unknown CAN ID");
                     break;
             }
+            
+            */
             StartThreadMethod();
         }
-       
 
+        private void tabRadio_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void changeVolume(int newVolume)
+        {
+            txtVolume.Text = newVolume.ToString();
+
+        }
+
+        private void btVolumeIncrease_Click(object sender, EventArgs e)
+        {
+            byte[] test = new byte[1];
+            test[0] = 0b01;
+            writeSerial(test, 1, 0x120);
+            
+        }
+
+        private void btVolumeDecrease_Click(object sender, EventArgs e)
+        {
+            byte[] test = new byte[1] {0b10 };
+            writeSerial(test, 1, 0x120);
+        }
     }
     
 }

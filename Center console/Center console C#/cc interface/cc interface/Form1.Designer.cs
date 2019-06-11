@@ -39,12 +39,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.hScrollBar2 = new System.Windows.Forms.HScrollBar();
-            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.tabPhone = new System.Windows.Forms.TabPage();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -67,10 +62,18 @@
             this.tabNavigation = new System.Windows.Forms.TabPage();
             this.tabAirco = new System.Windows.Forms.TabPage();
             this.tabSettings = new System.Windows.Forms.TabPage();
-            this.lstBoxComports = new System.Windows.Forms.ListBox();
-            this.btComPortsConnect = new System.Windows.Forms.Button();
-            this.btComPortsRefresh = new System.Windows.Forms.Button();
             this.btComPortsTest = new System.Windows.Forms.Button();
+            this.btComPortsRefresh = new System.Windows.Forms.Button();
+            this.btComPortsConnect = new System.Windows.Forms.Button();
+            this.lstBoxComports = new System.Windows.Forms.ListBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.txtVolumeValue1 = new System.Windows.Forms.TextBox();
+            this.btVolumeIncrease1 = new System.Windows.Forms.Button();
+            this.btVolumeDecrease1 = new System.Windows.Forms.Button();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.txtVolume = new System.Windows.Forms.TextBox();
+            this.btVolumeIncrease = new System.Windows.Forms.Button();
+            this.btVolumeDecrease = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabRadio.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -80,6 +83,8 @@
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabSettings.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl
@@ -93,25 +98,23 @@
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(686, 336);
+            this.tabControl.Size = new System.Drawing.Size(686, 279);
             this.tabControl.TabIndex = 0;
             // 
             // tabRadio
             // 
+            this.tabRadio.Controls.Add(this.groupBox8);
             this.tabRadio.Controls.Add(this.groupBox2);
             this.tabRadio.Controls.Add(this.label3);
             this.tabRadio.Controls.Add(this.textBox1);
-            this.tabRadio.Controls.Add(this.label2);
-            this.tabRadio.Controls.Add(this.label1);
-            this.tabRadio.Controls.Add(this.hScrollBar2);
-            this.tabRadio.Controls.Add(this.hScrollBar1);
             this.tabRadio.Location = new System.Drawing.Point(4, 22);
             this.tabRadio.Name = "tabRadio";
             this.tabRadio.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRadio.Size = new System.Drawing.Size(678, 310);
+            this.tabRadio.Size = new System.Drawing.Size(678, 253);
             this.tabRadio.TabIndex = 0;
             this.tabRadio.Text = "Radio";
             this.tabRadio.UseVisualStyleBackColor = true;
+            this.tabRadio.Click += new System.EventHandler(this.tabRadio_Click);
             // 
             // groupBox2
             // 
@@ -121,9 +124,9 @@
             this.groupBox2.Controls.Add(this.button4);
             this.groupBox2.Controls.Add(this.button5);
             this.groupBox2.Controls.Add(this.button6);
-            this.groupBox2.Location = new System.Drawing.Point(573, 19);
+            this.groupBox2.Location = new System.Drawing.Point(564, 22);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(89, 271);
+            this.groupBox2.Size = new System.Drawing.Size(89, 201);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Favourites";
@@ -139,7 +142,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(6, 61);
+            this.button2.Location = new System.Drawing.Point(6, 48);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 1;
@@ -148,7 +151,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(6, 102);
+            this.button3.Location = new System.Drawing.Point(6, 77);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 2;
@@ -157,7 +160,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(6, 145);
+            this.button4.Location = new System.Drawing.Point(6, 106);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 3;
@@ -166,7 +169,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(6, 188);
+            this.button5.Location = new System.Drawing.Point(6, 135);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 4;
@@ -175,7 +178,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(6, 235);
+            this.button6.Location = new System.Drawing.Point(6, 164);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 23);
             this.button6.TabIndex = 5;
@@ -198,41 +201,8 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 10;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(25, 101);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 13);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "frequency";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 174);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 13);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Volume";
-            // 
-            // hScrollBar2
-            // 
-            this.hScrollBar2.Location = new System.Drawing.Point(28, 132);
-            this.hScrollBar2.Name = "hScrollBar2";
-            this.hScrollBar2.Size = new System.Drawing.Size(339, 32);
-            this.hScrollBar2.TabIndex = 7;
-            // 
-            // hScrollBar1
-            // 
-            this.hScrollBar1.Location = new System.Drawing.Point(28, 198);
-            this.hScrollBar1.Name = "hScrollBar1";
-            this.hScrollBar1.Size = new System.Drawing.Size(339, 32);
-            this.hScrollBar1.TabIndex = 6;
-            // 
             // tabPhone
             // 
-            this.tabPhone.Controls.Add(this.groupBox6);
             this.tabPhone.Controls.Add(this.groupBox5);
             this.tabPhone.Controls.Add(this.groupBox4);
             this.tabPhone.Controls.Add(this.groupBox3);
@@ -240,26 +210,17 @@
             this.tabPhone.Location = new System.Drawing.Point(4, 22);
             this.tabPhone.Name = "tabPhone";
             this.tabPhone.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPhone.Size = new System.Drawing.Size(678, 310);
+            this.tabPhone.Size = new System.Drawing.Size(678, 253);
             this.tabPhone.TabIndex = 1;
             this.tabPhone.Text = "Phone";
             this.tabPhone.UseVisualStyleBackColor = true;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Location = new System.Drawing.Point(361, 248);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(310, 57);
-            this.groupBox6.TabIndex = 8;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "groupBox6";
             // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.listBox1);
             this.groupBox5.Location = new System.Drawing.Point(6, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(349, 299);
+            this.groupBox5.Size = new System.Drawing.Size(349, 161);
             this.groupBox5.TabIndex = 7;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Contact list";
@@ -269,7 +230,7 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(6, 19);
             this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(337, 277);
+            this.listBox1.Size = new System.Drawing.Size(337, 134);
             this.listBox1.TabIndex = 3;
             // 
             // groupBox4
@@ -432,7 +393,7 @@
             this.tabMusic.Location = new System.Drawing.Point(4, 22);
             this.tabMusic.Name = "tabMusic";
             this.tabMusic.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMusic.Size = new System.Drawing.Size(678, 310);
+            this.tabMusic.Size = new System.Drawing.Size(678, 253);
             this.tabMusic.TabIndex = 2;
             this.tabMusic.Text = "Music";
             this.tabMusic.UseVisualStyleBackColor = true;
@@ -472,23 +433,15 @@
             this.tabSettings.UseVisualStyleBackColor = true;
             this.tabSettings.Click += new System.EventHandler(this.tabSettings_Click);
             // 
-            // lstBoxComports
+            // btComPortsTest
             // 
-            this.lstBoxComports.FormattingEnabled = true;
-            this.lstBoxComports.Location = new System.Drawing.Point(6, 6);
-            this.lstBoxComports.Name = "lstBoxComports";
-            this.lstBoxComports.Size = new System.Drawing.Size(120, 290);
-            this.lstBoxComports.TabIndex = 0;
-            // 
-            // btComPortsConnect
-            // 
-            this.btComPortsConnect.Location = new System.Drawing.Point(132, 35);
-            this.btComPortsConnect.Name = "btComPortsConnect";
-            this.btComPortsConnect.Size = new System.Drawing.Size(75, 23);
-            this.btComPortsConnect.TabIndex = 1;
-            this.btComPortsConnect.Text = "Connect";
-            this.btComPortsConnect.UseVisualStyleBackColor = true;
-            this.btComPortsConnect.Click += new System.EventHandler(this.btComPortsConnect_Click);
+            this.btComPortsTest.Location = new System.Drawing.Point(132, 64);
+            this.btComPortsTest.Name = "btComPortsTest";
+            this.btComPortsTest.Size = new System.Drawing.Size(75, 23);
+            this.btComPortsTest.TabIndex = 3;
+            this.btComPortsTest.Text = "Test";
+            this.btComPortsTest.UseVisualStyleBackColor = true;
+            this.btComPortsTest.Click += new System.EventHandler(this.btComPortsTest_Click);
             // 
             // btComPortsRefresh
             // 
@@ -500,21 +453,108 @@
             this.btComPortsRefresh.UseVisualStyleBackColor = true;
             this.btComPortsRefresh.Click += new System.EventHandler(this.btComPortsRefresh_Click);
             // 
-            // btComPortsTest
+            // btComPortsConnect
             // 
-            this.btComPortsTest.Location = new System.Drawing.Point(132, 64);
-            this.btComPortsTest.Name = "btComPortsTest";
-            this.btComPortsTest.Size = new System.Drawing.Size(75, 23);
-            this.btComPortsTest.TabIndex = 3;
-            this.btComPortsTest.Text = "Test";
-            this.btComPortsTest.UseVisualStyleBackColor = true;
-            this.btComPortsTest.Click += new System.EventHandler(this.btComPortsTest_Click);
+            this.btComPortsConnect.Location = new System.Drawing.Point(132, 35);
+            this.btComPortsConnect.Name = "btComPortsConnect";
+            this.btComPortsConnect.Size = new System.Drawing.Size(75, 23);
+            this.btComPortsConnect.TabIndex = 1;
+            this.btComPortsConnect.Text = "Connect";
+            this.btComPortsConnect.UseVisualStyleBackColor = true;
+            this.btComPortsConnect.Click += new System.EventHandler(this.btComPortsConnect_Click);
+            // 
+            // lstBoxComports
+            // 
+            this.lstBoxComports.FormattingEnabled = true;
+            this.lstBoxComports.Location = new System.Drawing.Point(6, 6);
+            this.lstBoxComports.Name = "lstBoxComports";
+            this.lstBoxComports.Size = new System.Drawing.Size(120, 290);
+            this.lstBoxComports.TabIndex = 0;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.txtVolumeValue1);
+            this.groupBox8.Controls.Add(this.btVolumeIncrease1);
+            this.groupBox8.Controls.Add(this.btVolumeDecrease1);
+            this.groupBox8.Location = new System.Drawing.Point(6, 305);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(343, 69);
+            this.groupBox8.TabIndex = 10;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "groupBox8";
+            // 
+            // txtVolumeValue1
+            // 
+            this.txtVolumeValue1.Location = new System.Drawing.Point(58, 16);
+            this.txtVolumeValue1.Multiline = true;
+            this.txtVolumeValue1.Name = "txtVolumeValue1";
+            this.txtVolumeValue1.Size = new System.Drawing.Size(227, 45);
+            this.txtVolumeValue1.TabIndex = 11;
+            // 
+            // btVolumeIncrease1
+            // 
+            this.btVolumeIncrease1.Location = new System.Drawing.Point(291, 16);
+            this.btVolumeIncrease1.Name = "btVolumeIncrease1";
+            this.btVolumeIncrease1.Size = new System.Drawing.Size(46, 45);
+            this.btVolumeIncrease1.TabIndex = 10;
+            this.btVolumeIncrease1.Text = "+";
+            this.btVolumeIncrease1.UseVisualStyleBackColor = true;
+            // 
+            // btVolumeDecrease1
+            // 
+            this.btVolumeDecrease1.Location = new System.Drawing.Point(6, 16);
+            this.btVolumeDecrease1.Name = "btVolumeDecrease1";
+            this.btVolumeDecrease1.Size = new System.Drawing.Size(46, 45);
+            this.btVolumeDecrease1.TabIndex = 9;
+            this.btVolumeDecrease1.Text = "-";
+            this.btVolumeDecrease1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.txtVolume);
+            this.groupBox9.Controls.Add(this.btVolumeIncrease);
+            this.groupBox9.Controls.Add(this.btVolumeDecrease);
+            this.groupBox9.Location = new System.Drawing.Point(16, 293);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(343, 69);
+            this.groupBox9.TabIndex = 12;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Volume";
+            // 
+            // txtVolume
+            // 
+            this.txtVolume.Location = new System.Drawing.Point(58, 16);
+            this.txtVolume.Multiline = true;
+            this.txtVolume.Name = "txtVolume";
+            this.txtVolume.Size = new System.Drawing.Size(227, 45);
+            this.txtVolume.TabIndex = 11;
+            // 
+            // btVolumeIncrease
+            // 
+            this.btVolumeIncrease.Location = new System.Drawing.Point(291, 16);
+            this.btVolumeIncrease.Name = "btVolumeIncrease";
+            this.btVolumeIncrease.Size = new System.Drawing.Size(46, 45);
+            this.btVolumeIncrease.TabIndex = 10;
+            this.btVolumeIncrease.Text = "+";
+            this.btVolumeIncrease.UseVisualStyleBackColor = true;
+            this.btVolumeIncrease.Click += new System.EventHandler(this.btVolumeIncrease_Click);
+            // 
+            // btVolumeDecrease
+            // 
+            this.btVolumeDecrease.Location = new System.Drawing.Point(6, 16);
+            this.btVolumeDecrease.Name = "btVolumeDecrease";
+            this.btVolumeDecrease.Size = new System.Drawing.Size(46, 45);
+            this.btVolumeDecrease.TabIndex = 9;
+            this.btVolumeDecrease.Text = "-";
+            this.btVolumeDecrease.UseVisualStyleBackColor = true;
+            this.btVolumeDecrease.Click += new System.EventHandler(this.btVolumeDecrease_Click);
             // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 359);
+            this.ClientSize = new System.Drawing.Size(712, 372);
+            this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.tabControl);
             this.Name = "mainForm";
             this.Text = "Main form";
@@ -529,6 +569,10 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tabSettings.ResumeLayout(false);
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -542,16 +586,12 @@
         private System.Windows.Forms.TabPage tabNavigation;
         private System.Windows.Forms.TabPage tabAirco;
         private System.Windows.Forms.TabPage tabSettings;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.HScrollBar hScrollBar2;
-        private System.Windows.Forms.HScrollBar hScrollBar1;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -568,7 +608,6 @@
         private System.Windows.Forms.Button button18;
         private System.Windows.Forms.Button button17;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -578,6 +617,14 @@
         private System.Windows.Forms.ListBox lstBoxComports;
         private System.Windows.Forms.Button btComPortsRefresh;
         private System.Windows.Forms.Button btComPortsTest;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.TextBox txtVolumeValue1;
+        private System.Windows.Forms.Button btVolumeIncrease1;
+        private System.Windows.Forms.Button btVolumeDecrease1;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox txtVolume;
+        private System.Windows.Forms.Button btVolumeIncrease;
+        private System.Windows.Forms.Button btVolumeDecrease;
     }
 }
 

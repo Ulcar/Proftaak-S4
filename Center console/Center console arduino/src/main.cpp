@@ -5,9 +5,9 @@
 int test  = 0;
 SimpleCAN canInterface(100);
 
-bool receiveSerial(char messageArray[], int *length);
-bool sendSerial(char message[256], int length);
-bool sendCan(char message[], int length);
+bool receiveSerial(byte messageArray[], int *length);
+bool sendSerial(byte message[256], int length);
+bool sendCan(byte message[], int length);
 
 void setup() {
   Serial.begin(9600);
@@ -17,17 +17,19 @@ void setup() {
 
 
 void loop() {
-  char array[256];
+byte array[257];
   int l = 0;
-  bool recieved = receiveSerial(array, &l);
+bool recieved = receiveSerial(array, &l);
   if(recieved){
     sendCan(array, l);
   }
+  //Serial.write(2);
+  //delay(5000);
 
 
 }
 
-bool sendSerial(char message[], int length)
+bool sendSerial(byte message[], int length)
 {
 
   Serial.write('#');
@@ -39,8 +41,10 @@ bool sendSerial(char message[], int length)
   return true;
 }
 
-bool sendCan(char message[], int length)
+bool sendCan(byte message[], int length)
 {
+  //byte test = 2;
+  //Serial.write(test);
   unsigned long address = 0;
   int i= 0;
   while(true)
@@ -56,6 +60,7 @@ bool sendCan(char message[], int length)
     i++;
   }
 
+  //Serial.write(address);
   char canMessage[256];
   int canMessageLength = 0;
 
@@ -63,17 +68,19 @@ bool sendCan(char message[], int length)
   {
     if(i == length)break;
     canMessage[canMessageLength] = message[i];
-    Serial.println(canMessage[canMessageLength]);
+    //Serial.write(message[i]);
+    //Serial.print(canMessage[canMessageLength]);
 
     canMessageLength++;
     i++;
   }
 
+
   canInterface.SendCharMsg(canMessage, canMessageLength, address);
   return true;
 }
 
-bool receiveSerial(char messageArray[], int *length)
+bool receiveSerial(byte messageArray[], int *length)
 {
   *length = 0;
   if(Serial.available() && Serial.read() == '#')
@@ -81,8 +88,15 @@ bool receiveSerial(char messageArray[], int *length)
     while (true)
     {
       while (Serial.available() == 0);
-      char incoming = Serial.read();
-      if(incoming == '$')break;
+      {
+        //do nothing, just wait
+      }
+      byte incoming = Serial.read();
+      if(incoming == '$')
+      {
+        break;
+      }
+      //Serial.write(incoming);
       messageArray[*length] = incoming;
       *length = *length + 1;
       incoming = Serial.read();
