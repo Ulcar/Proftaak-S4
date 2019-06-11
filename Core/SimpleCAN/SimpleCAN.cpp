@@ -52,6 +52,20 @@ bool SimpleCAN::GetReceivedMessage(CANMSG *msg)
     return can.receiveCANMessage(msg, 10);
 }
 
+bool SimpleCAN::GetReceivedMessageWithAddress(CANMSG *msg, unsigned long *address)
+{
+   if(GetReceivedMessage(msg))
+   {
+      *address = msg->adrsValue;
+      return true;
+   }
+   else
+   {
+      return false;
+   }
+   
+}
+
 bool SimpleCAN::SendCharMsg(char buffer[], int size,  unsigned long adrsValue)
 {
    return SendByteMessage((byte*)buffer, size, adrsValue);

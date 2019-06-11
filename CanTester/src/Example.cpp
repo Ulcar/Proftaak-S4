@@ -74,6 +74,9 @@ void loop()
 
       if(can->CANMSGToByteArray(msg, &arr, &size))
       {
+        Serial.print("ID: ");
+        Serial.print(msg.adrsValue);
+        Serial.print(" Data: ");
         Serial.write((byte*)arr, size);
         // can->printByteArrayHex(arr, size);
         // if (can->PrintList(msg.data[0]) == -1)
@@ -97,7 +100,7 @@ void loop()
   // Serial.print("Sending data: ");
   Serial.write((byte *)data, size);
 
-  if (!can->SendString(data, size, atol(adr), (int)senderID))
+  if (!can->SendString(data, size, (int)senderID, atol(adr)))
   {
     Serial.println("Failed to send data.");
   }
