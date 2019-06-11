@@ -44,7 +44,7 @@ class SimpleCAN
     bool SendUint32(uint32_t val, unsigned long address);                        // Send a uint32 to address
     bool SendInt(int val, unsigned long address);                                // Send an int to address
     bool SendBool(bool val, unsigned long address);                              // Send a boolean to address
-    bool SendString(char buffer[], int size, unsigned long adrsValue, int senderID); // Send message with a char array longer than 8 bytes, size of char array and the address to send to. Maximum size of string is 255*6 chars.
+    bool SendString(char buffer[], int size, int senderID, unsigned long adrsValue);            // Send message with a char array longer than 8 bytes, size of char array and the address to send to. Maximum size of string is 255*6 chars.
     bool SendLongByteMessage(byte buffer[], int size, unsigned long adrsValue, int senderID); // Send message with an array longer than 8 bytes, size of byte array and the address to send to. Maximum size of string is 255*6 chars.
 
     bool GetReceivedMessage(CANMSG *msg);                                        // Receive message through a pointer. False if no message is received.
@@ -67,7 +67,7 @@ class SimpleCAN
 
     void CANMSGToCharArray(CANMSG msg, char* str, int* size);                // Returns the char array and size of the array as pointers.
     bool CANMSGToString(CANMSG msg, char* str, int* size);                   // Receives CANMSG structs, will return TRUE once it has a full message, returning the string as a char pointer with the string size.
-    bool CANMSGToByteArray(CANMSG msg, byte** arr, int *size);                // Receives CANMSG structs, will return TRUE once it has a full message, returning the bytes in a pointer together with the array size.
+    bool CANMSGToByteArray(CANMSG msg, byte** arr, int *size);               // Receives CANMSG structs, will return TRUE once it has a full message, returning the bytes in a pointer together with the array size.
 
     // Misc functions
     void printByteArray(byte *arrayPtr, int size);                           // Print a byte array, easy way to print CANMSG data by entering msg->data and msg->dataLength
@@ -79,6 +79,11 @@ class SimpleCAN
     // returns 0 on success
     // returns -1 if listID is invalid
     int PrintList(int listID);
+
+    // This function checks the lastAccessTime of each list, if long ago enough it gets removed as last data is not expected to arrive anymore
+    // This function should be called periodically to clean up any lost messages
+    // returns the amount of lists removed
+    int RemoveOldLists();
 
   private : 
     MCP2515 can;
@@ -131,11 +136,6 @@ class SimpleCAN
    // returns -1 if list is NULL
    // returns -2 if the list is not complete yet and extendedMessage has not been fully received, this will still compile the list and return it
    int CompileListData(MSGDATALIST *list, byte **allData, int *allDataSize);
-
-   // This function checks the lastAccessTime of each list, if long ago enough it gets removed as last data is not expected to arrive anymore
-   // This function should be called periodically to clean up any lost messages
-   // returns the amount of lists removed
-   int RemoveOldLists(); 
 
    // returns 0 if list successfully cleaned from MSGDATA objects
    // returns -1 if listID is invalid

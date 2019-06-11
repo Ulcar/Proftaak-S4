@@ -198,7 +198,7 @@ bool SimpleCAN::SendLongByteMessage(byte buffer[], int size, unsigned long adrsV
    return true;
 }
 
-bool SimpleCAN::SendString(char buffer[], int size, unsigned long adrsValue, int senderID)
+bool SimpleCAN::SendString(char buffer[], int size, int senderID, unsigned long adrsValue)
 {
    return SendLongByteMessage((byte*)buffer, size, adrsValue, senderID);
 }

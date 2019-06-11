@@ -13,6 +13,7 @@ SimpleCAN* can;
 CANMSG msg;
 const int inputLength = 100;
 char data[inputLength];
+byte senderID = 0;
 
 void printByteArray(byte data[], int length) // prints 8-bit data in hex
 {
@@ -68,7 +69,6 @@ void loop()
     
     else
     {
-      // HandleTextMsg(msg);
       byte* arr;
       int size;
 
@@ -89,28 +89,25 @@ void loop()
 
  if(Serial.available() > 0)
  {
-   int senderID = 5;
+   
   char adr[10] = {}; 
   Serial.readBytesUntil(';', adr, 10);
   int size = Serial.readBytesUntil('\n', data, inputLength);
 
-  Serial.print("Sending data: ");
+  // Serial.print("Sending data: ");
   Serial.write((byte *)data, size);
-  Serial.println(' ');
-  Serial.print("With size: ");
-  Serial.println(size);
 
-  if (!can->SendString(data, size, atol(adr), senderID))
+  if (!can->SendString(data, size, atol(adr), (int)senderID))
   {
     Serial.println("Failed to send data.");
   }
-
-  delay(50);
 
   // can->SendLongByteMessage((byte *)data, size, atol(adr));
   
   // byte buffer[30] = {0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E};
   // can->SendLongByteMessage(buffer, 30, atol(adr));
+  senderID++;
+  
  }
 }
 
